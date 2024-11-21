@@ -82,9 +82,6 @@ const renderRow = (item: TeacherList) => (
           </button>
         </Link>
         {role === 'admin' && (
-          // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-          //   <Image src="/delete.png" alt="" width={16} height={16} />
-          // </button>
           <FormModal table='teacher' type='delete' id={item.id} />
         )}
       </div>
@@ -97,9 +94,9 @@ const TeacherListPage = async ({
 }: {
   searchParams: { [key: string]: string | undefined }
 }) => {
-  const { page, ...queryParams } = searchParams
+  const { page, ...queryParams } = searchParams || {}
 
-  const p = page ? parseInt(page) : 1
+  const p = page ? parseInt(page, ITEM_PER_PAGE) : 1
 
   // URL PARAMS CONDITION
 
