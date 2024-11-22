@@ -3,11 +3,11 @@
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useState } from 'react'
+import { RiDeleteBin5Line } from 'react-icons/ri'
+import { FaRegEdit } from 'react-icons/fa'
+import { FaPlus } from 'react-icons/fa6'
 
 // USE LAZY LOADING
-
-// import TeacherForm from "./forms/TeacherForm";
-// import StudentForm from "./forms/StudentForm";
 
 const TeacherForm = dynamic(() => import('./forms/TeacherForm'), {
   loading: () => <h1>Loading...</h1>,
@@ -49,10 +49,19 @@ const FormModal = ({
   const size = type === 'create' ? 'w-8 h-8' : 'w-7 h-7'
   const bgColor =
     type === 'create'
-      ? 'bg-lamaYellow'
+      ? 'bg-yellowDark text-black '
       : type === 'update'
-      ? 'bg-lamaSky'
-      : 'bg-lamaPurple'
+      ? 'bg-blueDark'
+      : 'bg-pinkDark'
+
+  const btnIcon =
+    type === 'create' ? (
+      <FaPlus />
+    ) : type === 'update' ? (
+      <FaRegEdit />
+    ) : (
+      <RiDeleteBin5Line />
+    )
 
   const [open, setOpen] = useState(false)
 
@@ -76,10 +85,10 @@ const FormModal = ({
   return (
     <>
       <button
-        className={`${size} flex items-center justify-center rounded-full ${bgColor}`}
+        className={`${size} flex items-center justify-center rounded-full cursor-pointer ${bgColor}`}
         onClick={() => setOpen(true)}
       >
-        <Image src={`/${type}.png`} alt='' width={16} height={16} />
+        <span className=' text-xl text-white'>{btnIcon}</span>
       </button>
       {open && (
         <div className='w-screen h-screen absolute left-0 top-0 bg-black bg-opacity-60 z-50 flex items-center justify-center'>
