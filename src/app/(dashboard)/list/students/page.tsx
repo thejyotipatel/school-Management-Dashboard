@@ -2,10 +2,10 @@ import FormModal from '@/components/FormModal'
 import Pagination from '@/components/Pagination'
 import Table from '@/components/Table'
 import TableSearch from '@/components/TableSearch'
-import { role, studentsData } from '@/lib/data'
+import { role } from '@/lib/data'
 import prisma from '@/lib/prisma'
 import { ITEM_PER_PAGE } from '@/lib/setting'
-import { Class, Grade, Prisma, Student, Subject } from '@prisma/client'
+import { Class, Prisma, Student } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -87,9 +87,9 @@ const StudentListPage = async ({
 }: {
   searchParams: { [key: string]: string | undefined }
 }) => {
-  const { page, ...queryParams } = searchParams || {}
+  const { page, ...queryParams } = await searchParams
 
-  const p = page ? parseInt(page, ITEM_PER_PAGE) : 1
+  const p = page ? parseInt(page) : 1
 
   // URL PARAMS CONDITION
 

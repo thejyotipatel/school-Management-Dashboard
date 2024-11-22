@@ -2,7 +2,7 @@ import FormModal from '@/components/FormModal'
 import Pagination from '@/components/Pagination'
 import Table from '@/components/Table'
 import TableSearch from '@/components/TableSearch'
-import { role, teachersData } from '@/lib/data'
+import { role } from '@/lib/data'
 import prisma from '@/lib/prisma'
 import { ITEM_PER_PAGE } from '@/lib/setting'
 import { Class, Prisma, Subject, Teacher } from '@prisma/client'
@@ -94,9 +94,9 @@ const TeacherListPage = async ({
 }: {
   searchParams: { [key: string]: string | undefined }
 }) => {
-  const { page, ...queryParams } = searchParams || {}
+  const { page, ...queryParams } = await searchParams
 
-  const p = page ? parseInt(page, ITEM_PER_PAGE) : 1
+  const p = page ? parseInt(page) : 1
 
   // URL PARAMS CONDITION
 
