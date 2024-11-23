@@ -46,13 +46,13 @@ const FormModal = ({
   data?: any
   id?: number | string
 }) => {
-  const size = type === 'create' ? 'w-8 h-8' : 'w-7 h-7'
+  const size = type === 'create' ? 'w-8 h-8' : 'w-8 h-8'
   const bgColor =
     type === 'create'
       ? 'bg-yellowDark text-black '
       : type === 'update'
-      ? 'bg-blueDark'
-      : 'bg-pinkDark'
+      ? 'bg-blueLight text-white'
+      : 'bg-pinkLight text-white'
 
   const btnIcon =
     type === 'create' ? (
@@ -88,7 +88,7 @@ const FormModal = ({
         className={`${size} flex items-center justify-center rounded-full cursor-pointer ${bgColor}`}
         onClick={() => setOpen(true)}
       >
-        <span className=' text-xl text-white'>{btnIcon}</span>
+        <span className=' text-xl '>{btnIcon}</span>
       </button>
       {open && (
         <div className='w-screen h-screen absolute left-0 top-0 bg-black bg-opacity-60 z-50 flex items-center justify-center'>

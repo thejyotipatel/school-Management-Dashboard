@@ -2,12 +2,13 @@ import FormModal from '@/components/FormModal'
 import Pagination from '@/components/Pagination'
 import Table from '@/components/Table'
 import TableSearch from '@/components/TableSearch'
-import { role } from '@/lib/data'
+import { role } from '@/lib/utilis'
 import prisma from '@/lib/prisma'
 import { ITEM_PER_PAGE } from '@/lib/setting'
 import { Class, Prisma, Student } from '@prisma/client'
 import Image from 'next/image'
 import Link from 'next/link'
+import { FaEye } from 'react-icons/fa'
 
 type StudentList = Student & { class: Class }
 
@@ -36,10 +37,7 @@ const columns = [
     accessor: 'address',
     className: 'hidden lg:table-cell',
   },
-  {
-    header: 'Actions',
-    accessor: 'action',
-  },
+  ...(role === 'admin' ? [{ header: 'Actions', accessor: 'action' }] : []),
 ]
 
 const renderRow = (item: StudentList) => (
@@ -67,14 +65,13 @@ const renderRow = (item: StudentList) => (
     <td>
       <div className='flex items-center gap-2'>
         <Link href={`/list/teachers/${item.id}`}>
-          <button className='w-7 h-7 flex items-center justify-center rounded-full bg-lamaSky'>
-            <Image src='/view.png' alt='' width={16} height={16} />
+          <button className='w-7 h-7 flex items-center justify-center rounded-full bg-blueLight'>
+            <span className=' text-xl text-white '>
+              <FaEye />
+            </span>
           </button>
         </Link>
         {role === 'admin' && (
-          // <button className="w-7 h-7 flex items-center justify-center rounded-full bg-lamaPurple">
-          //   <Image src="/delete.png" alt="" width={16} height={16} />
-          // </button>
           <FormModal table='student' type='delete' id={item.id} />
         )}
       </div>
@@ -138,18 +135,13 @@ const StudentListPage = async ({
         <div className='flex flex-col md:flex-row items-center gap-4 w-full md:w-auto'>
           <TableSearch />
           <div className='flex items-center gap-4 self-end'>
-            <button className='w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow'>
+            <button className='w-8 h-8 flex items-center justify-center rounded-full bg-yellowDark'>
               <Image src='/filter.png' alt='' width={14} height={14} />
             </button>
-            <button className='w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow'>
+            <button className='w-8 h-8 flex items-center justify-center rounded-full bg-yellowDark'>
               <Image src='/sort.png' alt='' width={14} height={14} />
             </button>
-            {role === 'admin' && (
-              // <button className="w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow">
-              //   <Image src="/plus.png" alt="" width={14} height={14} />
-              // </button>
-              <FormModal table='student' type='create' />
-            )}
+            {role === 'admin' && <FormModal table='student' type='create' />}
           </div>
         </div>
       </div>

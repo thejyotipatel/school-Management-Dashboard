@@ -2,7 +2,7 @@ import FormModal from '@/components/FormModal'
 import Pagination from '@/components/Pagination'
 import Table from '@/components/Table'
 import TableSearch from '@/components/TableSearch'
-import { classesData, role } from '@/lib/data'
+import { role } from '@/lib/utilis'
 import prisma from '@/lib/prisma'
 import { ITEM_PER_PAGE } from '@/lib/setting'
 import { Class, Prisma, Teacher } from '@prisma/client'
@@ -30,10 +30,7 @@ const columns = [
     accessor: 'supervisor',
     className: 'hidden md:table-cell',
   },
-  {
-    header: 'Actions',
-    accessor: 'action',
-  },
+  ...(role === 'admin' ? [{ header: 'Actions', accessor: 'action' }] : []),
 ]
 
 const renderRow = (item: ClassList) => (
@@ -105,10 +102,10 @@ const ClassListPage = async ({
         <div className='flex flex-col md:flex-row items-center gap-4 w-full md:w-auto'>
           <TableSearch />
           <div className='flex items-center gap-4 self-end'>
-            <button className='w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow'>
+            <button className='w-8 h-8 flex items-center justify-center rounded-full bg-yellowDark'>
               <Image src='/filter.png' alt='' width={14} height={14} />
             </button>
-            <button className='w-8 h-8 flex items-center justify-center rounded-full bg-lamaYellow'>
+            <button className='w-8 h-8 flex items-center justify-center rounded-full bg-yellowDark'>
               <Image src='/sort.png' alt='' width={14} height={14} />
             </button>
             {role === 'admin' && <FormModal table='class' type='create' />}
