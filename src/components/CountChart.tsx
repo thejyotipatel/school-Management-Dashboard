@@ -1,27 +1,25 @@
 'use client'
-import Image from 'next/image'
 import { RadialBarChart, RadialBar, ResponsiveContainer } from 'recharts'
 import { FaFemale, FaMale } from 'react-icons/fa'
 
-const data = [
-  {
-    name: 'Total',
-    count: 106,
-    fill: 'white',
-  },
-  {
-    name: 'Girls',
-    count: 53,
-    fill: '#FFB4C2',
-  },
-  {
-    name: 'Boys',
-    count: 53,
-    fill: '#667BC6',
-  },
-]
-
 const CountChart = ({ boys, girls }: { boys: number; girls: number }) => {
+  const data = [
+    {
+      name: 'Total',
+      count: boys + girls,
+      fill: 'white',
+    },
+    {
+      name: 'Girls',
+      count: girls,
+      fill: '#FFB4C2',
+    },
+    {
+      name: 'Boys',
+      count: boys,
+      fill: '#667BC6',
+    },
+  ]
   return (
     <div className='relative w-full h-[75%]'>
       <ResponsiveContainer>
